@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormReturn, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from "date-fns";
@@ -454,7 +454,7 @@ export function BountyCreateForm() {
                 )}
 
                 <MarkdownTextarea
-                  form={form as any}
+                  form={form as UseFormReturn<FieldValues>}
                   name="description"
                   label="Bounty Description"
                   description="Describe the background context, requirements, deliverables, and terms."
@@ -467,7 +467,7 @@ export function BountyCreateForm() {
             {step === 2 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <BudgetInput
-                  form={form as any}
+                  form={form as UseFormReturn<FieldValues>}
                   name="reward"
                   label="Reward Amount"
                   description="Specify the amount contributors will be rewarded upon completion."
@@ -503,7 +503,7 @@ export function BountyCreateForm() {
 
                   {watchType !== BountyType.Competition && (
                     <DeadlineInput
-                      form={form as any}
+                      form={form as UseFormReturn<FieldValues>}
                       name="deadline"
                       label="Bounty Deadline"
                       description="The date when submissions will close."
@@ -607,7 +607,7 @@ export function BountyCreateForm() {
                       </p>
                     </div>
                     <MilestoneBuilder
-                      form={form as any}
+                      form={form as UseFormReturn<FieldValues>}
                       name="milestones"
                       maxMilestones={8}
                     />

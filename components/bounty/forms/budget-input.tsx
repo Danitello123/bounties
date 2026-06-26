@@ -22,7 +22,7 @@ import { type UseFormReturn, type FieldValues } from "react-hook-form"
 const ASSETS = [
   { value: "XLM", label: "XLM" },
   { value: "USDC", label: "USDC" },
-  { value: "AQUA", label: "AQUA" },
+  { value: "EURC", label: "EURC" },
 ] as const
 
 type Asset = (typeof ASSETS)[number]["value"]

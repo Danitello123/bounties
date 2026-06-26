@@ -21,7 +21,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useUserRole } from "@/hooks/use-user-role";
 import { authClient } from "@/lib/auth-client";
 
 import { Wallet, LogIn, Fingerprint } from "lucide-react";
@@ -31,18 +30,18 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
+  role?: string | null;
   organizations?: string[];
 }
 
 export function GlobalNavbar() {
   const pathname = usePathname();
-  const userRole = useUserRole();
   const { data: session } = authClient.useSession();
   const user = session?.user as ExtendedUser | undefined;
-  const isSponsorOrOrgMember = user && (
-    user.role === "sponsor" || 
-    (user.organizations && user.organizations.length > 0)
-  );
+  const isSponsorOrOrgMember =
+    user &&
+    (user.role === "sponsor" ||
+      (user.organizations && user.organizations.length > 0));
   const { walletInfo, isConnected, isRegistered, connect, isLoading } =
     useSmartWallet();
 

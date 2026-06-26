@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
-import { useUserRole } from "@/hooks/use-user-role";
 import { BountyCreateForm } from "@/components/bounty/bounty-create-form";
 
 interface ExtendedUser {
@@ -11,19 +10,19 @@ interface ExtendedUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
+  role?: string | null;
   organizations?: string[];
 }
 
 export default function CreateBountyPage() {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
-  const userRole = useUserRole();
 
   const user = session?.user as ExtendedUser | undefined;
-  const isSponsorOrOrgMember = user && (
-    user.role === "sponsor" || 
-    (user.organizations && user.organizations.length > 0)
-  );
+  const isSponsorOrOrgMember =
+    user &&
+    (user.role === "sponsor" ||
+      (user.organizations && user.organizations.length > 0));
 
   useEffect(() => {
     // Redirect to /bounty if the user is not authorized as a sponsor or organization member

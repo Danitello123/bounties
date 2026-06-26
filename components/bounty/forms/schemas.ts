@@ -11,7 +11,7 @@ export const budgetSchema = z.object({
     })
     .positive('Amount must be greater than 0')
     .max(1_000_000_000, 'Amount exceeds maximum'),
-  asset: z.enum(['XLM', 'USDC', 'AQUA'], {
+  asset: z.enum(['XLM', 'USDC', 'EURC'], {
     error: 'Please select an asset',
   }),
 })

@@ -23,8 +23,10 @@ export function useCreateBounty() {
         router.push("/bounty");
       }
     },
-    onError: (error: any) => {
-      toast.error(error.message || "Failed to create bounty");
+    onError: (error: unknown) => {
+      const message =
+        error instanceof Error ? error.message : "Failed to create bounty";
+      toast.error(message);
     },
   });
 
