@@ -14,8 +14,10 @@ import {
   Github, 
   HelpCircle, 
   CheckCircle2, 
-  Loader2 
+  Loader2,
+  AlertCircle
 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { useCreateBounty } from "@/hooks/use-create-bounty";
@@ -191,7 +193,7 @@ type BountyFormValues = z.infer<typeof bountyCreateSchema>;
 export function BountyCreateForm() {
   const [step, setStep] = useState(1);
   const { data: session } = authClient.useSession();
-  const { createBounty, isPending: isSubmitting } = useCreateBounty();
+  const { createBounty, isPending: isSubmitting, isError, error } = useCreateBounty();
   const { rounds } = useLightningRounds();
 
   // Parse user organizations & fallbacks
@@ -742,6 +744,16 @@ export function BountyCreateForm() {
                   </span>
                 </div>
               </div>
+            )}
+
+            {isError && (
+              <Alert variant="destructive">
+                <AlertCircle className="size-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>
+                  {error instanceof Error ? error.message : "Failed to create bounty. Please try again."}
+                </AlertDescription>
+              </Alert>
             )}
 
             {/* Form Actions */}
